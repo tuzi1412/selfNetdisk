@@ -1,0 +1,4 @@
+FROM --platform=$TARGETPLATFORM busybox
+ARG TARGETPLATFORM
+COPY $TARGETPLATFORM/bin/ /bin/
+ENTRYPOINT ["selfnetdisk"]
