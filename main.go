@@ -6,10 +6,27 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"runtime"
 )
 
+const (
+	linuxFileDir   = "/home/"
+	windowsFileDir = "C:\\Users\\Public\\"
+)
+
+var fileDir string
+
+func init() {
+	if runtime.GOOS == "linux" {
+		fileDir = linuxFileDir
+	}
+	if runtime.GOOS == "windows" {
+		fileDir = windowsFileDir
+	}
+}
+
 func main() {
-	http.Handle("/", http.FileServer(http.Dir("/home/")))
+	http.Handle("/", http.FileServer(http.Dir(fileDir)))
 	http.HandleFunc("/upload", uploadHandler)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
@@ -35,7 +52,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 			data, _ := ioutil.ReadAll(part)
 			fmt.Printf("FormData=[%s]\n", string(data))
 		} else { // This is FileData
-			dst, _ := os.Create("/home/pi/" + part.FileName())
+			dst, _ := os.Create(fileDir + part.FileName())
 			defer dst.Close()
 			io.Copy(dst, part)
 		}

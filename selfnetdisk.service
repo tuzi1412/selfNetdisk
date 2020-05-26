@@ -1,0 +1,13 @@
+[Unit]
+Description=selfnetdisk
+ 
+[Service]
+Type=forking
+ExecStart=/root/bin/selfnetdisk
+WorkingDirectory=/root/bin
+Restart=always
+RestartSec=5
+StartLimitInterval=0
+ 
+[Install]
+WantedBy=multi-user.target
