@@ -11,7 +11,7 @@ import (
 
 const (
 	linuxFileDir   = "/home/"
-	windowsFileDir = "C:\\Users\\Public\\"
+	windowsFileDir = "D:\\"
 )
 
 var fileDir string
@@ -28,7 +28,7 @@ func init() {
 func main() {
 	http.Handle("/", http.FileServer(http.Dir(fileDir)))
 	http.HandleFunc("/upload", uploadHandler)
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":80", nil)
 	if err != nil {
 		fmt.Println(err)
 	}
