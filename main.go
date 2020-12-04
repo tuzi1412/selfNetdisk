@@ -11,7 +11,7 @@ import (
 
 const (
 	linuxFileDir   = "/home/"
-	windowsFileDir = "D:\\"
+	windowsFileDir = "E:\\"
 )
 
 var fileDir string
